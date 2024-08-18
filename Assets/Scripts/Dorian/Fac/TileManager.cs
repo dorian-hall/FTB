@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class TileManager : MonoBehaviour
@@ -36,11 +36,11 @@ public class TileManager : MonoBehaviour
         
     }
 
-
+   
     public struct Tile
     {
-        GameObject TileObject;
-        GameObject PlaceAbleObject;
+        public GameObject TileObject;
+        public GameObject PlaceAbleObject;
 
         bool isOccupied;
         public Tile(GameObject Tile)

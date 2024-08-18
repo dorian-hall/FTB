@@ -1,23 +1,26 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class GridGenerator : MonoBehaviour
 {
-    [SerializeField] GameObject[] Tileset;
+    public TileSettings[] tileSettings;
+    public Texture2D Map;
 
+    public GameObject[] Tileset;
     [SerializeField] int X;
     [SerializeField] int Y;
 
-    [SerializeField] bool Generate;
+    [SerializeField] bool GenerateWithMap;
 
     
     public static GameObject[,] CurrentTileset;
 
 
     // Start is called before the first frame update
-    void generatelevel()
+    void Createlevel()
     {
         CurrentTileset = new GameObject[X, Y];
         int index = 0;
@@ -45,6 +48,10 @@ public class GridGenerator : MonoBehaviour
             index++;
         }
     }
+    void GenerateLevel()
+    {
+
+    }
 
     void DestroyTileMap()
     {
@@ -61,6 +68,17 @@ public class GridGenerator : MonoBehaviour
 
     private void Awake()
     {
-        generatelevel();
+        if (GenerateWithMap) { GenerateLevel(); }
+        else { Createlevel(); }
+    }
+
+    [Serializable]
+    public struct TileSettings
+    {
+        public string Name;
+        public GameObject Tile;
+        public GameObject PlaceAble;
+
+        public Color Color;
     }
 }

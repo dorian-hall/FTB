@@ -71,6 +71,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""E"",
+                    ""type"": ""Button"",
+                    ""id"": ""240d8692-364f-4322-86ed-3c61e2d0ef9c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Q"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd672a21-d875-40e1-a5cb-ffab383a366b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -194,6 +212,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Mouse Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2199ce37-6611-4dfb-b250-79beef3a335d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""E"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""166714dd-ef78-4493-8d56-d725da26382c"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Q"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -207,6 +247,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_actionmap_Mouse = m_actionmap.FindAction("Mouse", throwIfNotFound: true);
         m_actionmap_MouseLeft = m_actionmap.FindAction("Mouse Left", throwIfNotFound: true);
         m_actionmap_MouseRight = m_actionmap.FindAction("Mouse Right", throwIfNotFound: true);
+        m_actionmap_E = m_actionmap.FindAction("E", throwIfNotFound: true);
+        m_actionmap_Q = m_actionmap.FindAction("Q", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -273,6 +315,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_actionmap_Mouse;
     private readonly InputAction m_actionmap_MouseLeft;
     private readonly InputAction m_actionmap_MouseRight;
+    private readonly InputAction m_actionmap_E;
+    private readonly InputAction m_actionmap_Q;
     public struct ActionmapActions
     {
         private @Controls m_Wrapper;
@@ -282,6 +326,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Mouse => m_Wrapper.m_actionmap_Mouse;
         public InputAction @MouseLeft => m_Wrapper.m_actionmap_MouseLeft;
         public InputAction @MouseRight => m_Wrapper.m_actionmap_MouseRight;
+        public InputAction @E => m_Wrapper.m_actionmap_E;
+        public InputAction @Q => m_Wrapper.m_actionmap_Q;
         public InputActionMap Get() { return m_Wrapper.m_actionmap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -306,6 +352,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MouseRight.started += instance.OnMouseRight;
             @MouseRight.performed += instance.OnMouseRight;
             @MouseRight.canceled += instance.OnMouseRight;
+            @E.started += instance.OnE;
+            @E.performed += instance.OnE;
+            @E.canceled += instance.OnE;
+            @Q.started += instance.OnQ;
+            @Q.performed += instance.OnQ;
+            @Q.canceled += instance.OnQ;
         }
 
         private void UnregisterCallbacks(IActionmapActions instance)
@@ -325,6 +377,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MouseRight.started -= instance.OnMouseRight;
             @MouseRight.performed -= instance.OnMouseRight;
             @MouseRight.canceled -= instance.OnMouseRight;
+            @E.started -= instance.OnE;
+            @E.performed -= instance.OnE;
+            @E.canceled -= instance.OnE;
+            @Q.started -= instance.OnQ;
+            @Q.performed -= instance.OnQ;
+            @Q.canceled -= instance.OnQ;
         }
 
         public void RemoveCallbacks(IActionmapActions instance)
@@ -349,5 +407,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnMouse(InputAction.CallbackContext context);
         void OnMouseLeft(InputAction.CallbackContext context);
         void OnMouseRight(InputAction.CallbackContext context);
+        void OnE(InputAction.CallbackContext context);
+        void OnQ(InputAction.CallbackContext context);
     }
 }

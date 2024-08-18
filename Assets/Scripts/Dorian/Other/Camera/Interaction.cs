@@ -10,13 +10,24 @@ public class Interaction : MonoBehaviour
 
     public GameObject SelectedPrefab;
     [SerializeField] LayerMask _LayerMask;
-
+    
 
     private void Awake()
     {
         _Controls = new Controls();
         _Controls.actionmap.MouseLeft.performed += ctx => PlaceObject();
         _Controls.actionmap.MouseRight.performed += ctx => RemoveObject();
+
+        _Controls.actionmap.E.performed += ctx => Rotate(90);
+        _Controls.actionmap.Q.performed += ctx => Rotate(-90);
+    }
+
+    private void Rotate(float offset)
+    {
+        if (CoursorManager.instance.IsHovering) { return; }
+        if (HoveredObject == null) { return; }
+        Debug.Log("isRotated");
+        HoveredObject.transform.eulerAngles += Vector3.up * offset;
     }
     public void RemoveSelectedPrefab()
     {
