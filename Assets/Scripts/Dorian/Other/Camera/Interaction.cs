@@ -27,7 +27,8 @@ public class Interaction : MonoBehaviour
         if (CoursorManager.instance.IsHovering) { return; }
         if (HoveredObject == null) { return; }
         Debug.Log("isRotated");
-        HoveredObject.transform.eulerAngles += Vector3.up * offset;
+        Vector2Int pos = TileManager.Instance.GetTilePos[HoveredObject];
+        TileManager.Instance.TileMap[pos.x, pos.y].PlaceAbleObject.transform.eulerAngles += Vector3.up * offset;
     }
     public void RemoveSelectedPrefab()
     {

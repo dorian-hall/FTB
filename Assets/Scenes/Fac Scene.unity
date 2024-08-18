@@ -152,12 +152,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fb8e27c7bf8d0840b28e36e61dd662b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileSettings: []
+  Map: {fileID: 0}
   Tileset:
   - {fileID: 6574878348360058765, guid: 2d341f6aac639a748b273b09b9c45052, type: 3}
   - {fileID: 4675359856353002331, guid: e84fe7343728a744eba8db44eceb3ad1, type: 3}
   X: 10
   Y: 5
-  Generate: 0
+  GenerateWithMap: 0
 --- !u!4 &171474752
 Transform:
   m_ObjectHideFlags: 0
