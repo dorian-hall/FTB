@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -15,7 +16,7 @@ public class GridGenerator : MonoBehaviour
     [SerializeField] int Y;
 
     [SerializeField] bool GenerateWithMap;
-
+    [SerializeField] bool AddExistingLevel;
     
     public static GameObject[,] CurrentTileset;
 
@@ -57,6 +58,7 @@ public class GridGenerator : MonoBehaviour
         TileManager.Instance.TileMap = new TileManager.Tile[Map.width, Map.height];
         for (int x = 0; x < Map.width; x++)
         {
+
             for (int y = 0; y < Map.height; y++)
             {
                 Color pixlelcolor = Map.GetPixel(x, y);
@@ -80,6 +82,24 @@ public class GridGenerator : MonoBehaviour
                 }
             }
         }
+    }
+    void addlevel()
+    {
+        TileManager tileManager = TileManager.Instance;
+        TileManager.Instance.TileMap = new TileManager.Tile[Map.width, Map.height];
+        
+        
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform tile = transform.GetChild(i);
+            int x = (int)tile.transform.position.x;
+            int y = (int)tile.transform.position.z;
+            GameObject Placeable = null;
+            if(tile.childCount >= 2) { Placeable = tile.GetChild(1).gameObject; }
+            tileManager.TileMap[x,y] = new TileManager.Tile(tile.gameObject, Placeable);
+            tileManager.GetTilePos.Add(tile.gameObject, new Vector2Int(x,y));
+        }
+
     }
     void CreatePath()
     {
@@ -171,9 +191,16 @@ public class GridGenerator : MonoBehaviour
         if (GenerateWithMap) 
         { 
             GenerateLevel();
-            CreatePath();
+            return;
         }
-        else { Createlevel(); }
+
+        if(AddExistingLevel)
+        {
+            addlevel();
+            return;
+        }
+        
+        Createlevel(); 
     }
 
     [Serializable]

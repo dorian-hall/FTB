@@ -10,9 +10,12 @@ public class Camera_Controller : MonoBehaviour
 
         [Range(1,10)] 
         [SerializeField] float Movement_Speed = 1;
-        [Tooltip("Sets The the Space That the Camera Can Move in (Not Implamented!)")]
+        [Tooltip("Sets The the Space That the Camera Can Move in")]
+        [SerializeField] float maxX;
+        [SerializeField] float minX;
+        [SerializeField] float maxY;
+        [SerializeField] float minY;
 
-        
     [Header("Zoom Controls")]
 
         [Range(10, 20)] 
@@ -35,6 +38,11 @@ public class Camera_Controller : MonoBehaviour
     void move(Vector2 input)
     {
         Vector3 offset =  new Vector3(input.x, input.y *2,-input.x)* Movement_Speed * Time.deltaTime;
+        if (transform.localPosition.y + offset.y > maxY) { offset.y = 0; }
+        if (transform.localPosition.y + offset.y < minY) { offset.y = 0; }
+        
+        if (transform.localPosition.x + offset.x > maxX) { offset.x = 0; offset.z = 0;  }
+        if (transform.localPosition.x + offset.x < minX) { offset.x = 0; offset.z = 0; }
         transform.localPosition += offset;
     }
     void zoom(float Input)

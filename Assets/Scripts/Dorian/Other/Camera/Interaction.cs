@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class Interaction : MonoBehaviour
 {
     Controls _Controls;
     public GameObject HoveredObject;
-
+    public GameObject lastHoveredObject;
     public GameObject SelectedPrefab;
     [SerializeField] LayerMask _LayerMask;
     
@@ -69,7 +70,14 @@ public class Interaction : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 100, _LayerMask))
         {
-            if(HoveredObject != null) HoveredObject.transform.position += Vector3.down/2;
+            if (HoveredObject != null) {HoveredObject.transform.position += Vector3.down / 2; }
+            if (hit.transform.tag == "Path") 
+            {
+                HoveredObject = null;
+                return; 
+            }
+            
+            lastHoveredObject = HoveredObject;
             HoveredObject = hit.collider.gameObject;
             HoveredObject.transform.position += Vector3.up/2;
         }
